@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js practice</title>
+    <style>
+        body {background-color: #1E1E1E; color: white;}
+        .main, .res {
+            display: flex;
+            justify-content: center;
+        }
+        h2 {
+            color: rgb(113, 20, 220);
+            border: 4px dotted rgb(74, 21, 219);
+            padding: 7px 12px;
+        }
+        .main-btn {
+            display: flex;
+            justify-content: center;
+            gap: 19px;
+            margin-top: 50px;
+            margin-bottom: 34px;
+        }
+        #rl, #btn_res, #retry {display: none;}
+        button {
+            cursor: pointer;
+            outline: none;
+            border: none;
+            background-color: #92de34;
+            width: 192px;
+            height: 48px;
+            border-radius: 30px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #025600;
+            background-size: 100% 100%;
+            box-shadow: 0 0 0 6px #92de34 inset;
+        }
+        button:hover {
+            background-image: linear-gradient(-45deg, transparent 10%, #69bc22 10% 20%, transparent 20% 30%, #69bc22 30% 40%, transparent 40% 50%, #69bc22 50% 60%, transparent 60% 70%, #69bc22 70% 80%, transparent 80% 90%, #69bc22 90% 100%);
+            animation: background 3s linear infinite;
+        }
+        @keyframes background {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 192px 0;
+            }
+        }
+        li {font-size: 19px;}
+        #msg {font-size: 22px;}
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div>
+            <h2>WELCOME TO NUMBER GUESSING GAME</h2>
+            <div class="main-btn">
+                <button id="btn" onclick="myFunction();">Play Now</button>
+                <button id="btn-rl" onclick="rules();">Check Rules</button> 
+            </div>
+            <ul id="rl">
+                <li>You have to guess the number (1 to 5).</li>
+                <li>1 guess = 1 point.</li>
+                <li>You have to gain 3 points or more in total 5 round to win.</li>
+            </ul>
+            <div class="res">
+                <div  style="margin-top: 20px;">
+                    <button id="btn_res" onclick="result();">Check Result</button>
+                    <p id="num"></p>
+                    <p id="res"></p>
+                    <p id="total"></p>
+                    <p id="msg"></p>
+                    <button id="retry" onclick="myFunction2();">Retry</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var num, ans, i, max = 5, count = 0;
+        var ran = [], guess = [];
+        function myFunction (min=1, max=5) {
+            for (i = 0; i < max; i++) {
+                ans = Math.floor(Math.random() * (max - min + 1)) + min;
+                ran[i] = ans;
+                num = window.prompt(i+1+') '+'Enter a number (1 to 5):');
+                guess[i] = num;
+                if (ans == num) 
+                    count++;
+            }
+            if (i == max)
+                document.getElementById('btn_res').style.display = 'block';
+            return 0;
+        }
+        function rules() {
+            document.getElementById('rl').style.display = 'block';
+        }
+        function result() {
+            document.getElementById('num').innerHTML = 'Main numbers: ' + ran.join(", ");
+            document.getElementById('res').innerHTML = 'Your numbers: ' + guess.join(", ");
+            document.getElementById('total').innerHTML = 'Your scores: ' + count;
+            if (count<3) 
+                document.getElementById('msg').innerHTML = 'Sorry, You lose 😣';
+            else
+                document.getElementById('msg').innerHTML = 'Congratulations! You win 😄';
+            document.getElementById('retry').style.display = "block";
+        }
+        function myFunction2() {
+            self.location = "index.html";
+        }
+    </script>
+</body>
+</html>
